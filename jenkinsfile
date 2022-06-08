@@ -16,7 +16,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'IaC', region: 'us-east-1'){
                     sh 'terraform init --reconfigure'
-                    sh 'terraform apply --auto-approve -var-file dev.tfvars'
+                    sh 'terraform destroy --auto-approve -var-file dev.tfvars'
                     sh 'chmod 777 jumphost.sh'
                     sh '. ./jumphost.sh'
               
