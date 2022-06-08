@@ -25,7 +25,7 @@ pipeline {
         }
         stage('ansible config private-ec2') {
             steps {
-                    sh 'ansible-playbook -i inventory slave-playbook.yml'
+                    sh 'ansible-playbook -i inventory slave-playbook.yaml'
                 }
             }
         }
