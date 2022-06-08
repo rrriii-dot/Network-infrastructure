@@ -1,5 +1,5 @@
-resource "aws_elasticache_cluster" "redis-rinad" {
-  cluster_id           = "redis"
+resource "aws_elasticache_cluster" "redis-slave-r" {
+  cluster_id           = "redis-rinad"
   engine               = "redis"
   node_type            = "cache.m4.large"
   num_cache_nodes      = 1
