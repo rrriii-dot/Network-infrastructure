@@ -8,7 +8,7 @@ resource "aws_key_pair" "kp" {
   public_key = tls_private_key.private_key_pair.public_key_openssh
 
   provisioner "local-exec" { # Create "myKey.pem" to your computer!!
-    command = "echo '${tls_private_key.private_key_pair.private_key_pem}' > $HOME/.ssh/${var.name}-myKey.pem && chmod 600 ~/.ssh/${var.name}-myKey.pem"
+    command = "echo '${tls_private_key.private_key_pair.private_key_pem}' > $HOME/.ssh/myKey.pem && chmod 600 ~/.ssh/myKey.pem"
   }
 }
 
