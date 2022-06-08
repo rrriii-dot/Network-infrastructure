@@ -6,9 +6,9 @@
 #fi
 #cat terraform/key-pair.pem > ~/.ssh/mykey.pem
 #chmod 600 ~/.ssh/mykey.pem
-cd terraform/
-bastion_ip=`terraform output -json bastion-ip | tr -d '"'`
-private_ip=`terraform output -json private-ip | tr -d '"'`
+
+bastion_ip=`terraform output -json instance-Bastion | tr -d '"'`
+private_ip=`terraform output -json instance-Private | tr -d '"'`
 cat << EOF > ~/.ssh/config
 Host *
     Port 22
@@ -21,7 +21,7 @@ Host *
 host bastion
    HostName ${bastion_ip}
    User ubuntu
-   identityFile ~/.ssh/mykey.pem
+   identityFile ~/.ssh/myKey.pem
    AddKeysToAgent yes
    StrictHostKeyChecking=no
 
@@ -29,7 +29,7 @@ host private_instance
    HostName  ${private_ip}
    user  ubuntu
    ProxyCommand ssh bastion -W %h:%p
-   identityFile ~/.ssh/mykey.pem
+   identityFile ~/.ssh/myKey.pem
    StrictHostKeyChecking=no
 EOF
 
@@ -37,7 +37,7 @@ EOF
 
 # cat << EOF > ansible-slave/inventory
 # [slaves]
-# server-a ansible_host=${private_ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/mykey.pem
+# server-a ansible_host=${private_ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/myKey.pem
 # [slaves:vars]
 # ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q bastion"'
 # EOF
