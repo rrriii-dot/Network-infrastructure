@@ -85,7 +85,10 @@
       ansible.builtin.user:
         name: ubuntu
         group: docker
-
+    - name: copy jenkins agent file
+      copy:
+        src: /home/ubuntu/jenkins_home/workspace/IaC pipeline/agent.jar
+        dest: /home/ubuntu
     # - name: copy jenkins agent file
     #   copy:
     #     src: /home/ubuntu/agent.jar
